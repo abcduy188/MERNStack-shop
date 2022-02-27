@@ -3,7 +3,10 @@ import{ GlobalState } from '../../GlobalState';
 function Header() {
     const value = useContext(GlobalState)
   return (
-    <div>{value}</div>
+    <header>
+
+        
+    </header>
   )
 }
 
