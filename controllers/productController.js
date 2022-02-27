@@ -51,7 +51,7 @@ const productController = {
         try {
             // find all product
             
-            const features = new APIfeatures(Products.find(),req.query).filtering().sorting().paginating()
+            const features = new APIfeatures(Products.find(),req.query).filtering().sorting()
             const products = await features.query
             res.json({
                 status: 'success',
