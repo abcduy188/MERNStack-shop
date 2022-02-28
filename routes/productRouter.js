@@ -10,7 +10,9 @@ router.route('/product')
 router.route('/product/:id')
     .delete(prodController.deleteProduct)
     .put(prodController.updateProduct)
-
+router.route('/product/images/:id')
+    .get(prodController.listImages)
+    
 
 
 module.exports = router

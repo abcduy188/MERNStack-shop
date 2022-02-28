@@ -1,5 +1,5 @@
 const Products = require('../models/productModel')
-
+const Images = require('../models/imagesModel')
 //Filter, sorting and paginating
 class APIfeatures {
     constructor(query, queryString) {
@@ -39,24 +39,29 @@ class APIfeatures {
 }
 
 const productController = {
+    
     getProducts: async(req, res) => {
-        // try {
-        //     // find all product
-        //     const products = await Products.find()
-        //     res.json(products)
-        // } catch (error) {
-        //     return res.status(500).json({ msg: error.message })
-        // }
+       
 
         try {
+           //list product by category
+           
+            // const products = await Products.find({_id:'6210af7f2de4f32d546dd837'});
+
+
+
             // find all product
-            
             const features = new APIfeatures(Products.find(),req.query).filtering().sorting()
             const products = await features.query
+
+              
+          
+        
             res.json({
                 status: 'success',
                 result: products.lenght,
                 products: products
+                
             })
         } catch (error) {
             return res.status(500).json({ msg: error.message })
@@ -99,6 +104,18 @@ const productController = {
         try {
             await Products.findByIdAndDelete(req.params.id)
             res.json({ msg: "deleteproduct success" })
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
+    },
+    listImages: async(req, res) =>{
+        try {
+            const images = await Images.find({product_id : req.params.id});
+            res.json({
+                status: 'success',
+                result: images.lenght,
+                images: images
+            })
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
