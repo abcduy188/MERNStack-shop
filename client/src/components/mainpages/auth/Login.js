@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+
 function Login() {
   const [user, setUser] = useState({
     email:'', password:''
@@ -23,6 +24,7 @@ function Login() {
   }
   return (
     <div className="login-page">
+      <h2>Login</h2>
       <form onSubmit={loginSubmit}>
         <input type="email" name='email' required  placeholder='Email' value={user.email} onChange={onChangeInput} />
         <input type="password" name='password'autoComplete='on' required placeholder='Passworld' value={user.password}onChange={onChangeInput} />
