@@ -34,3 +34,11 @@ button{
 }
 
 @import url("./components/headers/Header.css");
+
+
+/* Products */
+@import url("./components/mainpages/product/product.css");
+
+
+/* detail product */
+@import url("./components/mainpages/detailProduct/detailProduct.css");
