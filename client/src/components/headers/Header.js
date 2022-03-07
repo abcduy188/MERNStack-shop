@@ -7,18 +7,16 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 function Header() {
   const state = useContext(GlobalState);
-  const [isLogged, setIsLogged] = state.userAPI.isLogged;
-  const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
-  const user= state.userAPI.user;
-  const loggoutUser = async ()=>{
-      await axios.get('/user/logout');
-      localStorage.clear();
-      setIsAdmin(false);
-      setIsLogged(false);
-     
-  }
-  console.log(user);
-  console.log();
+  const [isLogged] = state.userAPI.isLogged;
+  const [isAdmin] = state.userAPI.isAdmin;
+  const [cart] = state.userAPI.cart;
+
+  const loggoutUser = async () => {
+    await axios.get("/user/logout");
+    localStorage.clear();
+    window.location.href='/';
+  };
+
   const adminRouter = () => {
     return (
       <>
@@ -36,11 +34,13 @@ function Header() {
     return (
       <>
         <li>
-          <Link to="/history">Welcome {user[0].name}</Link>
+          <Link to="/history">History</Link>
         </li>
-        
+
         <li>
-          <Link to="/" onClick={loggoutUser}>Logout</Link>
+          <Link to="/" onClick={loggoutUser}>
+            Logout
+          </Link>
         </li>
       </>
     );
@@ -80,7 +80,8 @@ function Header() {
         ""
       ) : (
         <div className="cart-icon">
-          <span>0</span>
+          {cart.length > 0 ? <span>{cart.length}</span> : <span>0</span>}
+
           <Link to="/cart">
             <img src={Cart} alt="" width={30} />
           </Link>
