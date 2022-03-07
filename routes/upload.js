@@ -18,7 +18,7 @@ router.post('/upload', (req, res) => {
         if (!req.files || Object.keys(req.files).length == 0)
             return res.status(400).json({ msg: "No file was upload" })
         const file = req.files.file;
-        if (file.size > 1024 * 1024 * 3) //1024*1024*3 = 3mb
+        if (file.size > 1024 * 1024 * 5) //1024*1024*3 = 3mb
         {
             removeTmp(file.tempFilePath)
             return res.status(400).json({ msg: "size to large" })

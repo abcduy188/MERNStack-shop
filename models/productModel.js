@@ -41,6 +41,26 @@ const productSchema = new mongoose.Schema({
     sold:{
         type: Number,
         default: 0
+    },
+    cpu:{
+        type:String,
+        default:false,
+        trim:true
+    },
+    vga:{
+        type:String,
+        default:false,
+        trim:true
+    },
+    ram:{
+        type:Number,
+        default:8,
+        trim:true
+    },
+    weight:{
+        type:String,
+        default: false,
+        trim: true
     }
 }, {
     timestamps: true //important

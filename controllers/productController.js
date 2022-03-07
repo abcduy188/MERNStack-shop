@@ -70,7 +70,7 @@ const productController = {
     },
     createProduct: async(req, res) => {
         try {
-            const { product_id, title, price, description, content, images, category } = req.body;
+            const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
             if (!images) return res.status(400).json({ msg: "No image upload" })
             const product = await Products.findOne({ product_id })
             if (product)
@@ -82,20 +82,25 @@ const productController = {
                 description,
                 content,
                 images,
-                category
+                category,
+                cpu,
+                vga,
+                ram,
+                weight
+
             })
             await newProduct.save()
-            res.json({ msg: "create product success" })
+            res.json({ msg: newProduct._id });
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
     },
     updateProduct: async(req, res) => {
         try {
-            const { product_id, title, price, description, content, images, category } = req.body;
-            if (!images) return res.status(400).json({ msg: "No image upload" })
-            await Products.findByIdAndUpdate({ _id: req.params.id }, { title: title.toLowerCase(), price, description, content, images, category })
-            res.json({ msg: "update success" })
+            const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
+            if (!images) await Products.findByIdAndUpdate({ _id: req.params.id }, { cpu,vga,ram,weight })
+            else await Products.findByIdAndUpdate({ _id: req.params.id }, { title: title.toLowerCase(), price, description, content, images, category, cpu,vga,ram,weight })
+            res.json({ msg: "update success" });
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }

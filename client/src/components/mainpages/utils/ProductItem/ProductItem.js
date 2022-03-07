@@ -2,6 +2,10 @@ import React from "react";
 import BtnRender from './BtnRender'
 
 function ProductItem({ product ,isAdmin}) {
+
+  var x = product.price;
+  x = x.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
+
   return (
     <div className="product_card">
 {
@@ -11,7 +15,8 @@ function ProductItem({ product ,isAdmin}) {
       <img src={product.images.url} alt="" />
       <div className="product_box">
         <h2 title={product.title}>{product.title}</h2>
-        <span>{product.price}VND</span>
+        <span>{x}</span>
+        
         <p>{product.description}</p>
       </div>
 

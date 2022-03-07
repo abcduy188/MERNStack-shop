@@ -8,7 +8,7 @@ function DetailProduct() {
   const state = useContext(GlobalState);
   const [products] = state.productAPI.products;
   const [detailProduct, setDetailProduct] = useState([]);
-
+  const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(detailProduct.price);
   useEffect(() => {
    console.log('re render');
     if (params.id) {
@@ -28,7 +28,7 @@ function DetailProduct() {
           <h2>{detailProduct.title}</h2>
           <h6>#id: {detailProduct.product_id}</h6>
         </div>  
-        <span>{detailProduct.price} VND</span>
+        <span>{price}</span>
         <p>{detailProduct.description}</p>
         <p>{detailProduct.content}</p>
         <p>Sold: {detailProduct.sold}</p>
