@@ -4,7 +4,7 @@ import { GlobalState } from "../../../../GlobalState";
 
 function BtnRender({ product }) {
   const state = useContext(GlobalState);
-    const addCart = state.userAPI.addCart;
+  const addCart = state.userAPI.addCart;
   const [isAdmin] = state.userAPI.isAdmin; 
 
   return (

@@ -3,8 +3,8 @@ import BtnRender from './BtnRender'
 
 function ProductItem({ product ,isAdmin}) {
 
-  var x = product.price;
-  x = x.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
+  
+  const x = product.price.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
 
   return (
     <div className="product_card">

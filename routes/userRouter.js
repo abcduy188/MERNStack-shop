@@ -9,4 +9,5 @@ router.get('/refresh_token', userController.refreshToken)
 router.get('/infor', auth, userController.getUser)
 
 router.patch('/addcart', auth, userController.addcart)
+// patch = put ; chi thay doi cac fiel can thay doi 
 module.exports = router
