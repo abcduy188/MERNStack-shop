@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalState } from "../../../GlobalState";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import PaypalButton from './PaypalButton';
 
 function Cart() {
   const state = useContext(GlobalState);
@@ -69,8 +70,16 @@ function Cart() {
     })
   }
 
-  const x = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
+  // payment
 
+  const tranSuccess = async(payment) =>{
+    console.log(payment);
+  }
+
+  const VNd = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
+  const USD =  Math.round((total/22000) * 100) / 100;
+
+  console.log(USD)
   
   if (cart.length === 0){
     return (
@@ -107,8 +116,13 @@ function Cart() {
       ))}
 
       <div className="total">
-        <h3>Total: {x}</h3>
-        <Link to="/">Payment</Link></div>
+        <h3>Total: {VNd}</h3>
+        
+        <PaypalButton
+        total = {USD}
+        // eslint-disable-next-line no-undef
+        tranSuccess ={tranSuccess} />
+        </div>
     </div>
   );
 }
