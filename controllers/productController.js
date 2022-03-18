@@ -8,15 +8,15 @@ class APIfeatures {
     }
     filtering() {
         const queryObj = {...this.queryString} //this.queryString = req.query
-        console.log(queryObj) //before delete 'page'
+        //console.log(queryObj) //before delete 'page'
         const excludeFields = ['page', 'sort','limit']
         excludeFields.forEach(el => delete(queryObj[el]))
-        console.log("query",queryObj) //after delete 'page'
+       // console.log("query",queryObj) //after delete 'page'
         let queryStr = JSON.stringify(queryObj)
         
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
         //gte = greater then or equal// lte: nho hon hoac bang
-        console.log({queryObj,queryStr})
+        //console.log({queryObj,queryStr})
         this.query.find(JSON.parse(queryStr))
         return this;
     }
@@ -70,7 +70,7 @@ const productController = {
     },
     createProduct: async(req, res) => {
         try {
-            const { product_id, title, price, description, content, images, category } = req.body;
+            const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
             if (!images) return res.status(400).json({ msg: "No image upload" })
             const product = await Products.findOne({ product_id })
             if (product)
@@ -82,20 +82,25 @@ const productController = {
                 description,
                 content,
                 images,
-                category
+                category,
+                cpu,
+                vga,
+                ram,
+                weight
+
             })
             await newProduct.save()
-            res.json({ msg: "create product success" })
+            res.json({ msg: newProduct._id });
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
     },
     updateProduct: async(req, res) => {
         try {
-            const { product_id, title, price, description, content, images, category } = req.body;
-            if (!images) return res.status(400).json({ msg: "No image upload" })
-            await Products.findByIdAndUpdate({ _id: req.params.id }, { title: title.toLowerCase(), price, description, content, images, category })
-            res.json({ msg: "update success" })
+            const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
+            if (!images) await Products.findByIdAndUpdate({ _id: req.params.id }, { cpu,vga,ram,weight })
+            else await Products.findByIdAndUpdate({ _id: req.params.id }, { title: title.toLowerCase(), price, description, content, images, category, cpu,vga,ram,weight })
+            res.json({ msg: "update success" });
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }

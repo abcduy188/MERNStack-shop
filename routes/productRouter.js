@@ -12,6 +12,7 @@ router.route('/product/:id')
     .put(prodController.updateProduct)
 router.route('/product/images/:id')
     .get(prodController.listImages)
+
     
 
 
