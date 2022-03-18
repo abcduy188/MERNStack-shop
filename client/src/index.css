@@ -50,3 +50,4 @@ button{
 
 /* Cart */
 @import url("./components/mainpages/cart/cart.css");
+@import url("./components/mainpages/history/OrderHistory.css");
