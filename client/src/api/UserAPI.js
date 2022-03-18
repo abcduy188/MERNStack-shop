@@ -6,7 +6,20 @@ function UserAPI(token){
     const [isAdmin, setIsAdmin] = useState(false);
     const [user, setUser] = useState([]);
     const [cart, setCart] = useState([]);
-
+    const [history, setHistory] = useState([]);
+    const [callback, setCallback] = useState(false);
+    useEffect(()=>{
+        if(token)
+        {
+            const getHistory = async()=>{
+                const res = await axios.get('/user/history',{
+                    headers:{Authorization: token}
+                })
+                setHistory(res.data);
+            }
+            getHistory();
+        }
+    },[token,callback]) //dependiences useeffect run when deps change
     useEffect(()=>{
             if(token){
                 const getUser = async()=>{
@@ -48,7 +61,9 @@ function UserAPI(token){
         isAdmin: [isAdmin, setIsAdmin],
         user :[user, setUser],
         cart:[cart, setCart],
-        addCart: addCart
+        addCart: addCart,
+        history:[history, setHistory],
+        callback: [callback, setCallback] 
     }
 }
 export default UserAPI;

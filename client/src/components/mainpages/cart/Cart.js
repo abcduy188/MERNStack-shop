@@ -9,6 +9,7 @@ function Cart() {
   const [cart,setCart] = state.userAPI.cart;
   const [token] = state.token;
   const [total, setTotal] = useState(0);
+  const [callback, setCallback] = state.userAPI.callback;
 
 
   
@@ -79,7 +80,9 @@ function Cart() {
     })
     setCart([]); // set cart rong
     addToCart([]);
-    console.log(cart);
+    console.log(callback);
+    setCallback(!callback);
+    console.log(callback);
     alert("Bạn đã order thành công");
   }
 
