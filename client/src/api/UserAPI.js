@@ -33,11 +33,12 @@ function UserAPI(token){
             return item._id !== product._id;
         })
         if(check){
-            setCart([...cart,{...product,quantity: 1}]);
-
+            setCart([...cart,{...product,quantity: 1}]); //... is Spread and rest operators
+            console.log([...cart,{...product,quantity: 1}]);
             await axios.patch('/user/addcart', {cart:[...cart, {...product, quantity: 1}]},{
                 headers: {Authorization: token}
             })
+            
         }else{
             alert("This item has been added to cart");
         }

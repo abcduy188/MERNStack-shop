@@ -7,7 +7,7 @@ function Product() {
   const state = useContext(GlobalState);
   const [products] = state.productAPI.products
   const [isAdmin] = state.userAPI.isAdmin
-  console.log(state);
+
   return (
     <>
      <div className='products'>

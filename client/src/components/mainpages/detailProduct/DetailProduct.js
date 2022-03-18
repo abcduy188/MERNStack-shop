@@ -8,6 +8,7 @@ function DetailProduct() {
   const state = useContext(GlobalState);
   const [products] = state.productAPI.products;
   const [detailProduct, setDetailProduct] = useState([]);
+  const addCart = state.userAPI.addCart;
   const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(detailProduct.price);
   useEffect(() => {
    console.log('re render');
@@ -32,7 +33,7 @@ function DetailProduct() {
         <p>{detailProduct.description}</p>
         <p>{detailProduct.content}</p>
         <p>Sold: {detailProduct.sold}</p>
-        <Link to="/cart" className="cart" >Mua Ngay</Link>
+        <Link to="/cart" className="cart" onClick={()=>addCart(detailProduct)}>Mua Ngay</Link>
       </div>
     </div>
     <div>

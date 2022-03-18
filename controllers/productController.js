@@ -8,15 +8,15 @@ class APIfeatures {
     }
     filtering() {
         const queryObj = {...this.queryString} //this.queryString = req.query
-        console.log(queryObj) //before delete 'page'
+        //console.log(queryObj) //before delete 'page'
         const excludeFields = ['page', 'sort','limit']
         excludeFields.forEach(el => delete(queryObj[el]))
-        console.log("query",queryObj) //after delete 'page'
+       // console.log("query",queryObj) //after delete 'page'
         let queryStr = JSON.stringify(queryObj)
         
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
         //gte = greater then or equal// lte: nho hon hoac bang
-        console.log({queryObj,queryStr})
+        //console.log({queryObj,queryStr})
         this.query.find(JSON.parse(queryStr))
         return this;
     }

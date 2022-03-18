@@ -34,7 +34,7 @@ function Cart() {
         }
     })
     setCart([...cart]);
-    addToCart();
+    addToCart(cart);
   }
   const decrement =(id)=>{
     cart.forEach(item =>{
@@ -44,7 +44,7 @@ function Cart() {
         }
     })
     setCart([...cart]);
-    addToCart();
+    addToCart(cart);
   }
 
 
@@ -59,11 +59,11 @@ function Cart() {
               cart.splice(index,1)
             }
       })
-      setCart([...cart]);addToCart();
+      setCart([...cart]);
+      addToCart(cart);
   }
 
-  const addToCart =async()=>{
-    console.log(cart);
+  const addToCart = async(cart)=>{
     await axios.patch('/user/addcart', {cart},{
       
       headers: {Authorization : token}
@@ -73,13 +73,20 @@ function Cart() {
   // payment
 
   const tranSuccess = async(payment) =>{
-    console.log(payment);
+    const {paymentID, address} = payment;
+    await axios.post('/api/payment', {cart, paymentID, address},{
+      headers: {Authorization: token}
+    })
+    setCart([]); // set cart rong
+    addToCart([]);
+    console.log(cart);
+    alert("Bạn đã order thành công");
   }
 
-  const VNd = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
+ 
   const USD =  Math.round((total/22000) * 100) / 100;
+  const VND = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
 
-  console.log(USD)
   
   if (cart.length === 0){
     return (
@@ -116,7 +123,7 @@ function Cart() {
       ))}
 
       <div className="total">
-        <h3>Total: {VNd}</h3>
+        <h3>Total: {VND}</h3>
         
         <PaypalButton
         total = {USD}
