@@ -13,7 +13,6 @@ function Header() {
 
   const loggoutUser = async () => {
     await axios.get("/user/logout");
-    localStorage.clear();
     window.location.href='/';
   };
 
@@ -21,10 +20,10 @@ function Header() {
     return (
       <>
         <li>
-          <Link to="/create_product">Create Product</Link>
+          <Link to="/admin/product">Create Product</Link>
         </li>
         <li>
-          <Link to="/category">Categories</Link>
+          <Link to="/admin/category">Categories</Link>
         </li>
       </>
     );

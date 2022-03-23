@@ -33,7 +33,7 @@ const categoryProductController = {
         // }
         try {
             await CategoryPro.findByIdAndDelete(req.params.id)
-            res.json("updated")
+            res.json("deleted")
 
         } catch (error) {
             return res.status(500).json({msg: error.message})

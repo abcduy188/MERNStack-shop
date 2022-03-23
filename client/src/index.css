@@ -51,3 +51,7 @@ button{
 /* Cart */
 @import url("./components/mainpages/cart/cart.css");
 @import url("./components/mainpages/history/OrderHistory.css");
+/* category */
+@import url("./components/mainpages/admin/categories/categories.css");
+/* create product */
+@import url("./components/mainpages/admin/product/createproduct.css");
