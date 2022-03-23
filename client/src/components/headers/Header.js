@@ -59,7 +59,7 @@ function Header() {
       </div>
       <ul>
         <li>
-          <Link to="/">{isAdmin ? "Product" : "Shop"}</Link>
+          <Link to="/admin/product">{isAdmin ? "Product" : "Shop"}</Link>
         </li>
 
         {isAdmin && adminRouter()}

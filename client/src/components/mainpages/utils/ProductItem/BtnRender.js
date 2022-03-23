@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GlobalState } from "../../../../GlobalState";
 
-function BtnRender({ product }) {
+function BtnRender({ product , images}) {
   const state = useContext(GlobalState);
   const addCart = state.userAPI.addCart;
   const [isAdmin] = state.userAPI.isAdmin; 

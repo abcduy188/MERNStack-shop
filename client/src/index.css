@@ -38,7 +38,7 @@ button{
 
 /* Products */
 @import url("./components/mainpages/product/product.css");
-
+@import url("./components/mainpages/admin/product.css");
 
 /* detail product */
 @import url("./components/mainpages/detailProduct/detailProduct.css");

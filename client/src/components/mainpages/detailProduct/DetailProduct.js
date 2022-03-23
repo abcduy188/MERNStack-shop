@@ -7,11 +7,11 @@ function DetailProduct() {
   const params = useParams();
   const state = useContext(GlobalState);
   const [products] = state.productAPI.products;
+  const [images] = state.productAPI.images;
   const [detailProduct, setDetailProduct] = useState([]);
   const addCart = state.userAPI.addCart;
   const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(detailProduct.price);
   useEffect(() => {
-   console.log('re render');
     if (params.id) {
       products.forEach((product) => {
         if (product._id === params.id) setDetailProduct(product);
@@ -43,7 +43,7 @@ function DetailProduct() {
 
           products.map(product=>{
             return product.category === detailProduct.category && product._id !== detailProduct._id
-            ?<ProductItem key={product._id} product={product}/> : null
+            ?<ProductItem key={product._id} product={product} images={images}/> : null
           })
         }
         </div>

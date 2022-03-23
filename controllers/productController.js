@@ -53,14 +53,16 @@ const productController = {
             // find all product
             const features = new APIfeatures(Products.find(),req.query).filtering().sorting()
             const products = await features.query
-
+            const images = await Images.find();
+        
               
           
         
             res.json({
                 status: 'success',
                 result: products.lenght,
-                products: products
+                products: products,
+                images : images
                 
             })
         } catch (error) {
