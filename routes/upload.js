@@ -3,7 +3,6 @@ const cloudinary = require('cloudinary')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 const fs = require('fs')
-const Images = require('../models/imagesModel');
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
@@ -34,18 +33,7 @@ router.post('/upload',auth,authAdmin, (req, res) => {
             if (err) throw err;
             //after upload witll have file tmp -> delete them
             removeTmp(file.tempFilePath)
-            res.json({ public_id: result.public_id, url: result.secure_url })
-            const public_id = result.public_id;
-            const url = result.url;
-            const {product_id} = req.body;
-            console.log(product_id);
-            const newImages = new Images({
-                public_id,
-                url,
-                product_id
-
-            })
-            await newImages.save();
+            res.json({ public_id: result.public_id, url: result.secure_url })   
         })
 
     } catch (error) {

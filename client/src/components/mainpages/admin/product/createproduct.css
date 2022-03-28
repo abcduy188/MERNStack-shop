@@ -2,13 +2,11 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-
-    align-items: center;
     justify-content: space-around;
 }
 .upload{
-    max-width: 450px;
-    height: 500px;
+    max-width: 410px;
+    height: 400px;
     width: 100%;
     border: 1px solid crimson;
     position: relative;
@@ -77,7 +75,7 @@
 .create_product form button{
     width: 200px;
     height: 40px;
-    background: #555;
+    background: rgb(255, 153, 153);
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;

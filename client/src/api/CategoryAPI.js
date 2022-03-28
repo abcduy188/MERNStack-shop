@@ -7,6 +7,7 @@ function CategoryAPI(token) {
         const getCategories = async ()=>{
             const res = await axios.get('/api/category');
             setCategories(res.data);
+           
         }
         getCategories()
     },[callback])

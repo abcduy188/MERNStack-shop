@@ -9,7 +9,6 @@ function Categories() {
     const [callback,setCallback] = state.categoryAPI.callback;
     const [edit, setEdit] = useState(false);
     const [id,setID] = useState('');
-
     const createCategory =async e =>{
         e.preventDefault()
         try {
@@ -42,9 +41,7 @@ function Categories() {
             const res = await axios.delete(`/api/category/delete/${id}`,{
                 headers: {Authorization: token}
             })
-            alert(
-                res.data
-            );
+            alert(res.data.msg);
             setCallback(!callback);
         } catch (error) {
             alert(error.respone.data.msg);

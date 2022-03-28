@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { GlobalState } from "../../../GlobalState";
 import ProductItem from "../utils/ProductItem/ProductItem";
 import Loading from "../utils/loading/Loading";
-
+import Filters from "./Filters";
 
 function Product() {
   const state = useContext(GlobalState);
@@ -14,6 +14,7 @@ function Product() {
 
   return (
     <>
+    <Filters/>
       <div className="products">
         {products.map((product) => {
           return (
