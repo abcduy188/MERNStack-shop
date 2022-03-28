@@ -1,16 +1,14 @@
-import React from "react";
-import BtnRender from './BtnRender'
-
-function ProductItem({ product ,isAdmin}) {
-
-  
+import React, {useContext, useState } from "react";
+import axios from "axios";
+import Loading from "../loading/Loading";
+import { Link } from "react-router-dom";
+import { GlobalState } from "../../../../GlobalState";
+function ProductItem({ product ,isAdmin,token,callback,setCallback}) {
+  const state = useContext(GlobalState);
+  const addCart = state.userAPI.addCart;
   const x = product.price.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
-
   return (
     <div className="product_card">
-{
-  isAdmin && <input type="checkbox" checked={product.checked} />
-}
 
       <img src={product.images.url} alt="" />
       <div className="product_box">
@@ -19,10 +17,14 @@ function ProductItem({ product ,isAdmin}) {
         
         <p>{product.description}</p>
       </div>
-
-
-
-      <BtnRender product={product} />
+      <div className="row_btn">
+          <Link id="btn_buy" to="#!" onClick={()=> addCart(product)}>
+            Buy
+          </Link>
+          <Link id="btn_view" to={`/detail/${product._id}`}>
+            View
+          </Link>
+    </div>
     </div>
   );
 }

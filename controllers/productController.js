@@ -1,5 +1,4 @@
 const Products = require('../models/productModel')
-const Images = require('../models/imagesModel')
 //Filter, sorting and paginating
 class APIfeatures {
     constructor(query, queryString) {
@@ -8,22 +7,24 @@ class APIfeatures {
     }
     filtering() {
         const queryObj = {...this.queryString} //this.queryString = req.query
-        //console.log(queryObj) //before delete 'page'
+        //console.log(this.query);
+        //console.log(queryObj ) //before delete 'page'
         const excludeFields = ['page', 'sort','limit']
         excludeFields.forEach(el => delete(queryObj[el]))
-       // console.log("query",queryObj) //after delete 'page'
+        //console.log(excludeFields) //after delete 'page'
         let queryStr = JSON.stringify(queryObj)
-        
+        console.log(queryStr);
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
         //gte = greater then or equal// lte: nho hon hoac bang
-        //console.log({queryObj,queryStr})
-        this.query.find(JSON.parse(queryStr))
+        console.log({queryObj,queryStr})
+        this.query.find(JSON.parse(queryStr)) //query is list product
         return this;
+       
     }
     sorting() {
         if(this.queryString.sort){
             const sortby = this.queryString.sort.split(',').join(' ')
-            this.query = this.query.sort(sortby)
+            this.query = this.query.sort(sortby) //sort trong mongo
         }else{
             this.query = this.query.sort('-createdAt')
         }
@@ -51,16 +52,14 @@ const productController = {
 
 
             // find all product
-            const features = new APIfeatures(Products.find(),req.query).filtering().sorting()
-            const products = await features.query
-
-              
-          
-        
+            const features = new APIfeatures(Products.find(),req.query);
+            const filter = features.filtering().sorting().paginating();
+            const products = await filter.query
+         
             res.json({
                 status: 'success',
-                result: products.lenght,
-                products: products
+                result: products.length,
+                products: products,
                 
             })
         } catch (error) {
