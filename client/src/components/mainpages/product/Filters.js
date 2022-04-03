@@ -8,13 +8,13 @@ function Filters() {
   return (
     <div className="filter_menu">
       <div className="row">
-        <span>Sort By: </span>
+        <span>Sắp xếp: </span>
         <select  value={sort} onChange={e=>setSort(e.target.value)}>
-          <option value="sort=oldest">newest</option>
-          <option value="sort=oldest">Oldest</option>
-          <option value="sort=-slod">Best sales</option>
-          <option value="sort=-price">Cao- thap</option>
-          <option value="sort=price">Thap - cao</option>
+          <option value="">Mới nhất</option>
+          <option value="sort=oldest">Cũ nhất</option>
+          <option value="sort=-slod">Bán chạy nhất</option>
+          <option value="sort=-price">Giá: Cao - thấp</option>
+          <option value="sort=price">Gia: Thấp - Cao</option>
         </select>
       </div>
     </div>

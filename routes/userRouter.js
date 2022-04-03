@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
 router.post('/register', userController.register)
-router.post('/createuser', userController.createUser)
+router.post('/createuser',auth, authAdmin, userController.createUser)
 router.post('/login', userController.login)
 router.get('/logout', userController.logout)
 router.get('/refresh_token', userController.refreshToken)
@@ -14,5 +14,7 @@ router.patch('/addcart', auth, userController.addcart)
 router.get('/allusers',auth,authAdmin, userController.getAllUsers)
 router.route('/update/:id')
     .patch(userController.updateUser)
+router.route('/delete/:id')
+    .delete(auth,authAdmin,userController.deleteUser)
 // patch = put ; chi thay doi cac fiel can thay doi 
 module.exports = router

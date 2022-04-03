@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, {useContext } from "react";
 import { GlobalState } from "../../GlobalState";
-import Menu from "./icon/menu.svg";
 import Close from "./icon/close.svg";
 import Cart from "./icon/cart.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Filter from "../../components/mainpages/product/Filters";
+import logo from "./icon/logo192.png";
 function Header() {
   const state = useContext(GlobalState);
   const [isLogged] = state.userAPI.isLogged;
@@ -13,7 +12,6 @@ function Header() {
   const [cart] = state.userAPI.cart;
   const [categories, setCategories] = state.categoryAPI.categories;
   const [category, setCategory] = state.productAPI.category;
-  const [sort, setSort] = state.productAPI.sort;
   const [search, setSearch] = state.productAPI.search;
   const loggoutUser = async () => {
     await axios.get("/user/logout");
@@ -24,16 +22,13 @@ function Header() {
     return (
       <>
         <li>
-          <Link to="/admin/product">Product</Link>
+          <Link to="/admin/product">Sản phẩm</Link>
         </li>
         <li>
-          <Link to="/admin/product/create">Create Product</Link>
+          <Link to="/admin/category">Danh mục</Link>
         </li>
         <li>
-          <Link to="/admin/category">Categories</Link>
-        </li>
-        <li>
-        <Link to="/admin/user">User</Link>
+          <Link to="/admin/user">Người dùng</Link>
         </li>
       </>
     );
@@ -43,12 +38,12 @@ function Header() {
     return (
       <>
         <li>
-          <Link to="/history">History</Link>
+          <Link to="/history">Lịch sử</Link>
         </li>
 
         <li>
           <Link to="/" onClick={loggoutUser}>
-            Logout
+            Đăng xuất
           </Link>
         </li>
       </>
@@ -62,14 +57,8 @@ function Header() {
 
   return (
     <header>
-      <div className="menu">
-        <img src={Menu} alt="" width="30px" />
-      </div>
-
       <div className="logo">
-        <h1>
-          <Link to="/">{isAdmin ? "Admin" : "ABCDUY"}</Link>
-        </h1>
+        <img src={logo} alt="" />
       </div>
       <ul>
         <li>
@@ -80,9 +69,8 @@ function Header() {
             onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
         </li>
-       
         <select onChange={handleCategory}>
-          <option value="">All Products</option>
+          <option value="">Tất cả sản phẩm</option>
           {categories.map((item) => (
             <option value={"category=" + item._id} key={item._id}>
               {item.name}
@@ -91,7 +79,7 @@ function Header() {
         </select>
         {!isAdmin ? (
           <li>
-            <Link to="/">Shop</Link>
+            <Link to="/">Cửa hàng</Link>
           </li>
         ) : (
           ""
@@ -101,15 +89,13 @@ function Header() {
           loggedRouter()
         ) : (
           <li>
-            <Link to="/login">Login || register</Link>
+            <Link to="/login">Đăng nhập || Đăng ký</Link>
           </li>
         )}
-
         <li>
           <img src={Close} alt="" width="30" className="menu" />
         </li>
       </ul>
-
       {isAdmin ? (
         ""
       ) : (

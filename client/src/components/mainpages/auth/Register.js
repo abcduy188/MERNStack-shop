@@ -23,18 +23,18 @@ function Register() {
   }
   return (
     <div className="login-page">
-      <h2>Register</h2>
+      <h2>Đăng ký</h2>
       <form onSubmit={registerSubmit}>
 
-        <input type="text" name='name' required  placeholder='Name' value={user.name} onChange={onChangeInput} />
+        <input type="text" name='name' required  placeholder='Tên của bạn' value={user.name} onChange={onChangeInput} />
         <input type="email" name='email' required  placeholder='Email' value={user.email} onChange={onChangeInput} />
-        <input type="password" name='password'autoComplete='on' required placeholder='Passworld' value={user.password}onChange={onChangeInput} />
+        <input type="password" name='password'autoComplete='on' required placeholder='Mật khẩu' value={user.password}onChange={onChangeInput} />
         
         <div className="row">
-          <button type='submit'>REgister</button>
+          <button type='submit'>Đăng ký</button>
 
 
-          <Link to='/login'>Login</Link>
+          <Link to='/login'>Đăng nhập</Link>
           </div>
         
         </form>

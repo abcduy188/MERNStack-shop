@@ -9,9 +9,8 @@ function UserAPI(token) {
     const [history, setHistory] = useState([]);
     const [usersa, setUsersa] = useState([]);
     const [callback, setCallback] = useState(false);
-
    
-    
+   
     useEffect(() => {
         if (token) {
             const getUser = async() => {
@@ -27,21 +26,10 @@ function UserAPI(token) {
                     alert(error.response.data.msg);
                 }
             }
-            const getUsers = async() => {
-                try {
-                    const res = await axios.get('/user/allusers', {
-                        headers: { Authorization: token }
-                    });
-                    setUsersa(res.data);
-                    console.log(res.data);
-                } catch (error) {
-                    alert(error.response.data.msg)
-                }
-            }
             getUser();
-            getUsers();
         }
-    }, [token,callback]); 
+    }, [token]);
+    
 
 
     //dependiences useeffect run when deps change
@@ -69,7 +57,6 @@ function UserAPI(token) {
         cart: [cart, setCart],
         addCart: addCart,
         history: [history, setHistory],
-        users: [usersa, setUsersa],
         callback: [callback, setCallback]
     }
 }
