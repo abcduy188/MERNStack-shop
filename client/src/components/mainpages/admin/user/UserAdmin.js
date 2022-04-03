@@ -125,7 +125,16 @@ function UserAdmin() {
             />
           </div>
         )}
-
+        <div className="row">
+          <label htmlFor="category">Địa chỉ</label>
+          <input
+            type="text"
+            name="address"
+            value={user.address || ""}
+            required
+            onChange={handlechangeInput}
+          />
+        </div>
         <div className="row">
           <label htmlFor="category">Role</label>
           <select name="role" value={user.role} onChange={handlechangeInput}>

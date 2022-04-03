@@ -1,4 +1,4 @@
-const Products = require('../models/productModel')
+const Products = require('./productModel')
 //Filter, sorting and paginating
 class APIfeatures {
     constructor(query, queryString) {
@@ -8,16 +8,16 @@ class APIfeatures {
     filtering() {
         const queryObj = {...this.queryString} //this.queryString = req.query
         //console.log(this.query);
-        //console.log(queryObj ) //before delete 'page'
+        console.log(this.queryString )
+        console.log( queryObj ) //before delete 'page'
         const excludeFields = ['page', 'sort','limit']
         excludeFields.forEach(el => delete(queryObj[el]))
-        //console.log(excludeFields) //after delete 'page'
+        console.log(queryObj) //after delete 'page'
         let queryStr = JSON.stringify(queryObj)
-        //queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
         //gte = greater then or equal// lte: nho hon hoac bang
         queryStr = queryStr.replace(/\b(regex)\b/g,macth =>'$'+macth)
         this.query.find(JSON.parse(queryStr))
-        console.log(JSON.parse(queryStr))
+        //console.log(JSON.parse(queryStr))
         return this;
        
     }
@@ -31,7 +31,7 @@ class APIfeatures {
         return this;
     }
     paginating() {
-        const page = this.queryString.page *1||1
+        const page = this.queryString.page *1||1 
         const limit = this.queryString.limit * 1|| 3
         const skip = (page -1) *limit;
         this.query = this.query.skip(skip).limit(limit)

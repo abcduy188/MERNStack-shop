@@ -80,6 +80,7 @@ function CreateProduct() {
   const handleDestroy = async () => {
     try {
       if (!isAdmin) return alert("Bạn không phải admin");
+      console.log(images.public_id);
       await axios.post(
         "/api/destroy",
         { public_id: images.public_id },
