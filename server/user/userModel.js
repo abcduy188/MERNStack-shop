@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    address:{
+        type:String,
+        trim:true,
+        default:"HCMC,VN"
+    },
     cart:{
         type:Array,
         default: []

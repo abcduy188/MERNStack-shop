@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalState } from "../../../GlobalState";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import PaypalButton from './PaypalButton';
 
 function Cart() {
   const state = useContext(GlobalState);
@@ -72,18 +71,7 @@ function Cart() {
 
   // payment
 
-  const tranSuccess = async(payment) =>{
-    console.log('cart: ', payment);
-    const {paymentID, address} = payment;
-    await axios.post('/api/payment', {cart, paymentID, address},{
-      headers: {Authorization: token}
-    })
-    setCart([]); // set cart rong
-    addToCart([]);
-    alert("Bạn đã order thành công");
-  }
 
-  const USD =  Math.round((total/22000) * 100) / 100;
   const VND = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
 
   
@@ -119,13 +107,7 @@ function Cart() {
 
       <div className="total">
         <h3>Tổng cộng: {VND}</h3>
-        
-        <PaypalButton
-        //2 props 
-        fee = {USD}
-        // eslint-disable-next-line no-undef
-        abc ={tranSuccess} //promise co payment se lam
-         />
+        <Link to={'/payment'}>Đặt hàng</Link>
         </div>
     </div>
   );

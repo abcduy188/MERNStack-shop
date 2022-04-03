@@ -6,6 +6,7 @@ import DetailProduct from './detailProduct/DetailProduct';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Cart from './cart/Cart';
+import Payment from './payment/Payment';
 import OrderHistory from './history/OrderHistory';
 import OrderDetail from './history/OrderDetail';
 import NotFound from './utils/not_found/NotFound';
@@ -35,6 +36,7 @@ function Pages() {
       <Route path='/admin/product/create' element={isLogged && isAdmin ? <CreateProduct /> :NotFound() } />
       <Route path='/admin/edit_product/:id' element={isLogged && isAdmin ? <CreateProduct /> :NotFound() } />
       <Route path='/admin/user' element={isLogged && isAdmin ? <UserAdmin /> :NotFound() } />
+      <Route path='/payment' element={isLogged ? <Payment /> :NotFound() } />
     </Routes> 
   )
 }

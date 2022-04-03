@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const cateCtrl = require('../controllers/categoryProductController')
+const cateCtrl = require('./categoryProductController')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 router.route('/category')

@@ -1,5 +1,5 @@
-const Users = require('../models/userModel')
-const Payments = require('../models/paymentModel')
+const Users = require('./userModel')
+const Payments = require('../payment/paymentModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const userController = {
@@ -133,7 +133,7 @@ const userController = {
     createUser: async(req, res) => {
         try {
             var pass = "";
-            const { name, email, password, role } = req.body;
+            const { name, email, password, role ,address} = req.body;
             const user = await Users.findOne({ email })
             pass = password;
 
@@ -150,7 +150,8 @@ const userController = {
                 name,
                 email,
                 password: passwordHash,
-                role
+                role,
+                address
             })
 
             //save mongodb
@@ -163,7 +164,7 @@ const userController = {
     },
     updateUser: async(req, res) => {
         try {
-            const { name, email, password, role } = req.body;
+            const { name, email, password, role, address } = req.body;
             const user = await Users.findOne({ email });
             const usercheck = await Users.findById(req.params.id);
             if (user && user.email !== usercheck.email)
@@ -177,7 +178,7 @@ const userController = {
 
                 const passwordHash = await bcrypt.hash(pass, 10)
                
-                await Users.findByIdAndUpdate({ _id: req.params.id }, { name, email, password:passwordHash, role })
+                await Users.findByIdAndUpdate({ _id: req.params.id }, { name, email, password:passwordHash, role, address })
             }
             res.json({ msg: "update success" });
 

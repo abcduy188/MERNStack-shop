@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
-const path = require('path')
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -14,11 +13,11 @@ app.use(fileUpload({
 }))
 
 //routes
-app.use('/user', require('./routes/userRouter'))
-app.use('/api', require('./routes/cateprodRouter'))
-app.use('/api', require('./routes/upload'))
-app.use('/api', require('./routes/productRouter'))
-app.use('/api', require('./routes/paymentRouter'))
+app.use('/user', require('./user/userRouter'))
+app.use('/api', require('./category/cateprodRouter'))
+app.use('/api', require('./upload/upload'))
+app.use('/api', require('./product/productRouter'))
+app.use('/api', require('./payment/paymentRouter'))
 //connect to mongodb
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {

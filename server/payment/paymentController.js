@@ -1,7 +1,7 @@
-const Payments = require('../models/paymentModel');
-const Users = require('../models/userModel');
-const Products = require('../models/productModel');
-
+const Payments = require('./paymentModel');
+const Users = require('../user/userModel');
+const Products = require('../product/productModel');
+var md5 = require('md5');
 const paymentController = {
 
     getPayments: async(req, res)=>{
@@ -16,20 +16,23 @@ const paymentController = {
         try {
             const user = await Users.findById(req.user.id).select('name email');
             if(!user) return res.status(400).json({msg: "Người dùng không tồn tại"});
-
-            const {cart, paymentID, address} = req.body;
+            console.log("DA nhan order")
+            const {cart, address} = req.body;
             const {_id,name,email} = user;
-
+            const d = new Date();
+            console.log(d);
+            const paymentID = md5(d);
+           
             const newPaymant = new Payments({
                paymentID , user_id:_id, name, email,address,cart
             });
 
             cart.filter(item=>{
-                console.log(item._id, item.quantity , item.sold)
                 return sold(item._id, item.quantity , item.sold)
             });
 
             await newPaymant.save();
+            console.log("Order oke")
             res.json({msg: "Thanh toán thành công"});
         } catch (error) { 
             
