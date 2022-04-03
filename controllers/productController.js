@@ -13,11 +13,11 @@ class APIfeatures {
         excludeFields.forEach(el => delete(queryObj[el]))
         //console.log(excludeFields) //after delete 'page'
         let queryStr = JSON.stringify(queryObj)
-        console.log(queryStr);
-        queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
+        //queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,macth =>'$'+macth)
         //gte = greater then or equal// lte: nho hon hoac bang
-        console.log({queryObj,queryStr})
-        this.query.find(JSON.parse(queryStr)) //query is list product
+        queryStr = queryStr.replace(/\b(regex)\b/g,macth =>'$'+macth)
+        this.query.find(JSON.parse(queryStr))
+        console.log(JSON.parse(queryStr))
         return this;
        
     }
@@ -45,17 +45,12 @@ const productController = {
        
 
         try {
-           //list product by category
            
-            // const products = await Products.find({_id:'6210af7f2de4f32d546dd837'});
-
-
-
-            // find all product
             const features = new APIfeatures(Products.find(),req.query);
             const filter = features.filtering().sorting().paginating();
             const products = await filter.query
-         
+            //const products = await Products.find({title:{'$regex':'acer'}})
+        
             res.json({
                 status: 'success',
                 result: products.length,

@@ -144,7 +144,7 @@ function CreateProduct() {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <label htmlFor="product_id">Product ID</label>
+          <label htmlFor="product_id">ID sản phẩm</label>
           <input
             type="text"
             name="product_id"

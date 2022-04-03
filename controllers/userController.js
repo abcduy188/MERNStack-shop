@@ -184,6 +184,16 @@ const userController = {
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
+    },
+    deleteUser: async(req,res)=>{
+        try {
+            if(req.user.id === req.params.id) return res.json({ msg: "Bạn không thể xóa chính mình" })
+            await Users.findByIdAndDelete(req.params.id);
+            return res.json({msg: "Xóa thành công user"});
+            
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
     }
 }
 const createAccessToken = (user) => {

@@ -55,7 +55,7 @@ function Cart() {
             
 
               // https://freetuts.net/ham-array-splice-trong-javascript-4081.html
-              // about splice
+              // about splice splice(start, deleteCount)
               cart.splice(index,1)
             }
       })
@@ -73,6 +73,7 @@ function Cart() {
   // payment
 
   const tranSuccess = async(payment) =>{
+    console.log('cart: ', payment);
     const {paymentID, address} = payment;
     await axios.post('/api/payment', {cart, paymentID, address},{
       headers: {Authorization: token}
@@ -82,14 +83,13 @@ function Cart() {
     alert("Bạn đã order thành công");
   }
 
- 
   const USD =  Math.round((total/22000) * 100) / 100;
   const VND = total.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'});
 
   
   if (cart.length === 0){
     return (
-      <h2 style={{ textAlign: "center", fontSize: "5rem" }}>Cart Empty</h2>
+      <h2 style={{ textAlign: "center", fontSize: "5rem" }}>Giỏ hàng trống</h2>
     );
   }
     
@@ -101,12 +101,8 @@ function Cart() {
         <div key={product._id} className="detail cart">
           <img src={product.images.url} alt=""  className="img_container"/>
           <div className="box-detail">
-            
               <h2>{product.title}</h2>
-            
-            
             {
-             
               <span>{(product.price * product.quantity).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</span>
             }
             <p>{product.description}</p>
@@ -122,12 +118,14 @@ function Cart() {
       ))}
 
       <div className="total">
-        <h3>Total: {VND}</h3>
+        <h3>Tổng cộng: {VND}</h3>
         
         <PaypalButton
-        total = {USD}
+        //2 props 
+        fee = {USD}
         // eslint-disable-next-line no-undef
-        tranSuccess ={tranSuccess} />
+        abc ={tranSuccess} //promise co payment se lam
+         />
         </div>
     </div>
   );

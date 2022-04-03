@@ -1,21 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { GlobalState } from "../../../../GlobalState";
 import axios from "axios";
 
 function UserAdmin() {
   const state = useContext(GlobalState);
-  const [users, setUsers] = state.userAPI.users;
+  const [users, setUsers] = useState([]);
   const [user, setUser] = useState([]);
   const [isAdmin] = state.userAPI.isAdmin;
   const [token] = state.token;
   const [callback, setCallback] = state.userAPI.callback;
-  const [id, setID] = useState("");
   const [edit, setEdit] = useState(false);
+
+  useEffect(() => {
+    if (token) {
+      const getUsers = async () => {
+        try {
+          const res = await axios.get("/user/allusers", {
+            headers: { Authorization: token },
+          });
+          setUsers(res.data);
+        } catch (error) {
+          alert(error.response.data.msg);
+        }
+      };
+      getUsers();
+    }
+  }, [callback, token]);
 
   const handlechangeInput = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,11 +40,10 @@ function UserAdmin() {
         const res = await axios.patch(
           `/user/update/${user._id}`,
           { ...user },
-         
+
           {
             headers: { Authorization: token },
           }
-          
         );
         alert(res.data.msg);
         setEdit(false);
@@ -50,20 +65,30 @@ function UserAdmin() {
   };
 
   const editUser = async (user) => {
-    setID(user._id);
     setUser(user, (user.password = ""));
-    console.log(user);
     setEdit(true);
   };
+  const deleteUser = async (id) => {
+    try {
+      const res = await axios.delete(`/user/delete/${id}`, {
+        headers: { Authorization: token },
+      });
+      alert(res.data.msg);
+      setCallback(!callback);
+    } catch (error) {
+      alert(error.respone.data.msg);
+    }
+  };
+
   return (
     <div className="categories">
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <label htmlFor="category">Name</label>
+          <label htmlFor="category">Tên</label>
           <input
             type="text"
             name="name"
-            value={user.name ||""}
+            value={user.name || ""}
             required
             onChange={handlechangeInput}
           />
@@ -73,14 +98,14 @@ function UserAdmin() {
           <input
             type="text"
             name="email"
-            value={user.email ||""}
+            value={user.email || ""}
             required
             onChange={handlechangeInput}
           />
         </div>
         {edit ? (
           <div className="row">
-            <label htmlFor="category">Password</label>
+            <label htmlFor="category">Mật khẩu</label>
             <input
               type="password"
               name="password"
@@ -90,11 +115,11 @@ function UserAdmin() {
           </div>
         ) : (
           <div className="row">
-            <label htmlFor="category">Password</label>
+            <label htmlFor="category">Mật khẩu</label>
             <input
               type="password"
               name="password"
-              value={user.password ||""}
+              value={user.password || ""}
               required
               onChange={handlechangeInput}
             />
@@ -104,7 +129,7 @@ function UserAdmin() {
         <div className="row">
           <label htmlFor="category">Role</label>
           <select name="role" value={user.role} onChange={handlechangeInput}>
-            <option value="">Vui lòng chọn danh mục</option>
+            <option value="">Vui lòng chọn quyền</option>
             <option value="1">Admin</option>
             <option value="0">User</option>
           </select>
@@ -116,8 +141,8 @@ function UserAdmin() {
           <div className="row" key={item._id}>
             <p>{item.name}</p>
             <div>
-              <button onClick={() => editUser(item)}>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => editUser(item)}>Sửa</button>
+              <button onClick={() => deleteUser(item._id)}>Xóa</button>
             </div>
           </div>
         ))}
