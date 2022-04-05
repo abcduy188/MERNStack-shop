@@ -87,7 +87,8 @@ function Payment() {
           onChange={handlechangeInput}
         />
       </div>
-      <button type="submit">Xác nhận đặt hàng</button>
+      <div className="rowbtn"><button className="btnpayment" type="submit">Xác nhận đặt hàng</button></div>
+      
     </form>
   );
 }

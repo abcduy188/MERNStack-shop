@@ -1,16 +1,41 @@
+.left{
+    width: 65%;
+    float: left;
+}
+.right{
+    margin-left: 5px;
+    width: 30%;
+    float: right;
+}
 .cart{
     position: relative;
-    border: 1px solid #ccc;
+    border: 1px solid #e53637;
     transform: scaleY(0.98);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.cart img{
+    max-width: 150px;
+    width: 100%;
+    margin: 10px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
 }
 .amount span{
     color: crimson;
     padding: 0 20px;
 }
 .amount button{
+    margin-top: 10px;
     width: 40px;
     height: 40px;
-    border: 1px solid #777;
+    background: #e53637;
+    font-weight: 700;
 }
 .delete{
     position: absolute;
@@ -29,4 +54,7 @@
 }
 .total h3{
     color: crimson;
+}
+.total a{
+    color: white;
 }

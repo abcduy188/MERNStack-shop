@@ -7,7 +7,7 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  background: #0b0c2a;
 }
 
 code {
@@ -20,6 +20,7 @@ code {
   margin: 0 auto;
   padding: 0 20px;
   box-shadow: 0 0 35px #eee;
+  
 }
 a{
   text-decoration: none;
@@ -56,3 +57,4 @@ button{
 @import url("./components/mainpages/admin/categories/categories.css");
 /* create product */
 @import url("./components/mainpages/admin/product/createproduct.css");
+@import url("./components/mainpages//payment/payment.css");

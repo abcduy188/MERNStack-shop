@@ -27,7 +27,6 @@ function DetailProduct() {
       <div className="box-detail">
         <div className="row">
           <h2>{detailProduct.title}</h2>
-          <h6>#id: {detailProduct.product_id}</h6>
         </div>  
         <span>{price}</span>
         <p>{detailProduct.description}</p>
@@ -37,7 +36,7 @@ function DetailProduct() {
       </div>
     </div>
     <div>
-      <h2>Sản phẩm liên quan</h2>
+      <h2 style={{ color:"white" }}>Sản phẩm liên quan</h2>
       <div className="products">
         {
 
