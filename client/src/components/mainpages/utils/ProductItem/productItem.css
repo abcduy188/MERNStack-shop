@@ -11,6 +11,7 @@
     height: 300px;
     display: block;
     object-fit: cover;
+    border-radius: 5px;
 }
 .product_box h2{
     width: 100%;
@@ -19,7 +20,7 @@
     white-space: nowrap;
     text-transform: capitalize;
     cursor: pointer;
-    color: blueviolet;
+    color: white;
 }
 .product_card span{
     color: crimson;
@@ -31,7 +32,7 @@
     -webkit-line-clamp: 3;
     height: 70px;
     overflow: hidden;
-    color: black;
+    color: white;
 }
 .row_btn{
     width: 100% ;
@@ -43,14 +44,14 @@
     width: 50%;
     text-align: center;
     text-transform: uppercase;
-    color: wheat;
+    color: white;
     font-weight: 600;
     letter-spacing: 2px;
     padding: 6px;
 
 }
 #btn_buy{
-    background: #555;
+    background: #e53637;
     margin-left: 5px;
 }
 #btn_view{

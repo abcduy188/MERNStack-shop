@@ -2,6 +2,8 @@ import React, {useContext } from "react";
 import { GlobalState } from "../../GlobalState";
 import Close from "./icon/close.svg";
 import Cart from "./icon/cart.svg";
+
+import CartW from "./icon/cartw.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import logo from "./icon/logo192.png";
@@ -69,7 +71,7 @@ function Header() {
             onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
         </li>
-        <select onChange={handleCategory}>
+        <select onChange={handleCategory} className="select">
           <option value="">Tất cả sản phẩm</option>
           {categories.map((item) => (
             <option value={"category=" + item._id} key={item._id}>
@@ -103,7 +105,7 @@ function Header() {
           {cart.length > 0 ? <span>{cart.length}</span> : <span>0</span>}
 
           <Link to="/cart">
-            <img src={Cart} alt="" width={30} />
+            <img src={CartW} alt="" width={30} />
           </Link>
         </div>
       )}

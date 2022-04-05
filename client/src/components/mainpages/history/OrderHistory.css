@@ -6,10 +6,12 @@
     margin: 20px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
+    color: white;
 }
 .history-page table{
     margin: auto;
     width: 100%;
+    color: white;
 }
 .history-page table,th,tr,td{
     border: 1px solid #ddd;

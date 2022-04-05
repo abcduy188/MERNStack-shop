@@ -10,23 +10,22 @@ function ProductsAdmin() {
   const [callback, setCallback] = state.productAPI.callback;
   return (
     <>
-     <li>
+      <div className="productadmin">
+        <li>
           <Link to="/admin/product/create">Create Product</Link>
         </li>
-      <div>
-        <table>
-          <thead>
-            <tr><th>
-              Tên sản phẩm </th>
-            <th>Hình ảnh</th>
-            <th>Giá</th>
-            <th>
-            </th>
-            </tr>
-            
-          </thead>
-          <tbody> 
-            {products.map((product)=>{
+        <div>
+          <table className="tableadmin">
+            <thead>
+              <tr>
+                <th>Tên sản phẩm </th>
+                <th>Hình ảnh</th>
+                <th>Giá</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => {
                 return (
                   <ProductItemAdmin
                     key={product._id}
@@ -38,8 +37,9 @@ function ProductsAdmin() {
                   />
                 );
               })}
-              </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

@@ -29,11 +29,11 @@ if(loading) return<div className="product_card"><Loading /></div>
           <td>{product.title}</td>
           <td><img src={product.images.url} alt="" height="100px" /></td>
           <td>{x}</td>
-          <td>
-          <Link id="btn_view" to={`/admin/edit_product/${product._id}`}>
+          <td className="btn">
+          <Link id="btn_view_admin" to={`/admin/edit_product/${product._id}`}>
             Chỉnh sửa
           </Link>
-          <Link id="btn_buy" to="#!" onClick={deleteProduct}>
+          <Link id="btn_delete_admin" to="#!" onClick={deleteProduct}>
             Xóa
           </Link>
           </td>
