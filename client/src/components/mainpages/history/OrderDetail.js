@@ -27,28 +27,29 @@ function OrderDetail() {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Postal code</th>
-            <th>Country code</th>
+            <th>Tên</th>
+            <th>Đường</th>
+            <th>Phường</th>
+            <th>thành phố-quốc gia</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{orderDetail.address.recipient_name}</td>
-            <td>{orderDetail.address.line1 +"-"+orderDetail.address.city}</td>
-            <td>{orderDetail.address.postal_code}</td>
-            <td>{orderDetail.address.country_code}</td>
+            <td>{orderDetail.name}</td>
+            <td>{orderDetail.address.street}</td>
+            <td>{orderDetail.address.ward}</td>
+            <td>{orderDetail.address.city+"-"+orderDetail.address.country}</td>
           </tr>
         </tbody>
       </table>
+      <h4>Thông tin đơn hàng</h4>
       <table>
         <thead>
           <tr>
             <th></th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +59,7 @@ function OrderDetail() {
                     <td><img src={item.images.url} alt="" height="30px"/></td>
                     <td>{item.title}</td>
                     <td>{item.quantity}</td>
-                    <td>{ item.price.toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</td>
+                    <td>{(item.quantity* item.price).toLocaleString('vi-VN', {style : 'currency', currency : 'VND'})}</td>
                   </tr>
                 ))
             }

@@ -11,13 +11,13 @@ function ProductAPI() {
     const [result, setResult] = useState(0);
 
     const getProducts = async() => {
-        const res = await axios.get(`/api/product?limit=${page*9}&${category}&${sort}&title[regex]=${search}`);
+        const res = await axios.get(`/api/product?${category}&${sort}&title[regex]=${search}`);
         setProducts(res.data.products);
         setResult(res.data.result);
     }
     useEffect(() => {
         getProducts()
-    }, [callback, category, sort, page, search])
+    }, [callback, category, sort, search])
     return {
         products: [products, setProducts],
         callback: [callback, setCallback],
