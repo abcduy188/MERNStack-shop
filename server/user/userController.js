@@ -12,10 +12,10 @@ const userController = {
 
 
             if (user)
-                return res.status(400).json({ msg: " Email da ton tai !" })
+                return res.status(400).json({ msg: "Email đã có người sử dụng !" })
 
             if (pass.length < 6)
-                return res.status(400).json({ msg: "password phai hon 6 ky tu" })
+                return res.status(400).json({ msg: "Mật khẩu phải hơn 6 ký tự!!" })
 
             //password encrytor
             const passwordHash = await bcrypt.hash(pass, 10)
@@ -46,10 +46,10 @@ const userController = {
             const { email, password } = req.body;
 
             const user = await Users.findOne({ email })
-            if (!user) return res.status(400).json({ msg: "Email does not exist" })
+            if (!user) return res.status(400).json({ msg: "Email không tồn tại!!" })
 
             const isMatch = await bcrypt.compare(password, user.password)
-            if (!isMatch) return res.status(400).json({ msg: "Incorrect Password!!" })
+            if (!isMatch) return res.status(400).json({ msg: "Mật khẩu không đúng!!" })
 
             //if login success, create token
             const accesstoken = createAccessToken({ id: user._id });
@@ -76,13 +76,12 @@ const userController = {
     refreshToken: (req, res) => {
         try {
             const rf_token = req.cookies.refreshtoken;
-            if (!rf_token) return res.status(400).json({ msg: "Please Login or Register" })
 
-            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                if (err) return res.status(400).json({ msg: "Please Login or Register" })
+            if (!rf_token) return res.status(400).json({ msg: "Vui lòng đăng nhập!!" })
 
-                const accesstoken = createAccessToken({ id: user.id })
-
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
+                if (err) return res.status(400).json({ msg: "Vui lòng đăng nhập!!" })
+                const accesstoken = createAccessToken({ id: data.id })
                 res.json({ accesstoken })
             })
 
@@ -94,7 +93,7 @@ const userController = {
     getUser: async(req, res) => {
         try {
             const user = await Users.findById(req.user.id).select('-password')
-            if (!user) return res.status(400).json({ msg: "user does not exist" })
+            if (!user) return res.status(400).json({ msg: "Tài khoản không tồn tại!" })
             res.json(user)
         } catch (error) {
             return res.status(500).json({ msg: error.message })
@@ -103,7 +102,7 @@ const userController = {
     addcart: async(req, res) => {
         try {
             const user = await Users.findById(req.user.id);
-            if (!user) return res.status(400).json({ msg: "User does not exist." });
+            if (!user) return res.status(400).json({ msg: "Tài khoản không tồn tại!" });
             await Users.findOneAndUpdate({ _id: req.user.id }, {
                 cart: req.body.cart
             })
@@ -133,16 +132,15 @@ const userController = {
     createUser: async(req, res) => {
         try {
             var pass = "";
-            const { name, email, password, role ,address} = req.body;
+            const { name, email, password, role, address } = req.body;
             const user = await Users.findOne({ email })
             pass = password;
 
-
             if (user)
-                return res.status(400).json({ msg: " Email da ton tai !" })
+                return res.status(400).json({ msg: "Email đã có người sử dụng !" })
 
             if (pass.length < 6)
-                return res.status(400).json({ msg: "password phai hon 6 ky tu" })
+                return res.status(400).json({ msg: "Mật khẩu phải hơn 6 ký tự!!" })
 
             //password encrytor
             const passwordHash = await bcrypt.hash(pass, 10)
@@ -168,17 +166,17 @@ const userController = {
             const user = await Users.findOne({ email });
             const usercheck = await Users.findById(req.params.id);
             if (user && user.email !== usercheck.email)
-                return res.status(400).json({ msg: " Email da ton tai !" })
+                return res.status(400).json({ msg: "Email đã có người sử dụng !" })
             if (password === "") {
                 await Users.findByIdAndUpdate({ _id: req.params.id }, { name, email, role })
             } else {
                 const pass = password;
                 if (pass.length < 6)
-                    return res.status(400).json({ msg: "password phai hon 6 ky tu" })
+                    return res.status(400).json({ msg: "Mật khẩu phải hơn 6 ký tự!!" })
 
                 const passwordHash = await bcrypt.hash(pass, 10)
-               
-                await Users.findByIdAndUpdate({ _id: req.params.id }, { name, email, password:passwordHash, role, address })
+
+                await Users.findByIdAndUpdate({ _id: req.params.id }, { name, email, password: passwordHash, role, address })
             }
             res.json({ msg: "update success" });
 
@@ -186,19 +184,20 @@ const userController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    deleteUser: async(req,res)=>{
+    deleteUser: async(req, res) => {
         try {
-            if(req.user.id === req.params.id) return res.json({ msg: "Bạn không thể xóa chính mình" })
+            if (req.user.id === req.params.id) return res.json({ msg: "Bạn không thể xóa chính mình" })
             await Users.findByIdAndDelete(req.params.id);
-            return res.json({msg: "Xóa thành công user"});
-            
+            return res.json({ msg: "Xóa thành công user" });
+
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
     }
 }
-const createAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+const createAccessToken = (data) => {
+    console.log(data);
+    return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
 }
 const createRefreshToken = (user) => {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' })

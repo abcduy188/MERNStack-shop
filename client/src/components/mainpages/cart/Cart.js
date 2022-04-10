@@ -26,7 +26,9 @@ function Cart() {
         item.quantity += 1;
       }
     });
+    console.log("set cart o cart dc goi");
     setCart([...cart]);
+    console.log(cart);
     addToCart(cart);
   };
   const decrement = (id) => {
@@ -41,7 +43,7 @@ function Cart() {
   };
 
   const removeProduct = (id) => {
-    if (window.confirm("Are you sure to delete this product ?"))
+    if (window.confirm("Xoá sản phẩm khỏi giỏ hàng?"))
       cart.forEach((item, index) => {
         if (item._id === id) {
           // https://freetuts.net/ham-array-splice-trong-javascript-4081.html
@@ -51,6 +53,7 @@ function Cart() {
       });
     setCart([...cart]);
     addToCart(cart);
+    console.log(cart);
   };
 
   const addToCart = async (cart) => {

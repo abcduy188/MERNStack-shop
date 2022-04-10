@@ -10,7 +10,7 @@ const uploadController ={
     upload: (req,res)=>{
         try {
             if (!req.files || Object.keys(req.files).length == 0)
-                return res.status(400).json({ msg: "No file was upload" })
+                return res.status(400).json({ msg: "Vui lòng chọn ảnh" })
             const file = req.files.file;
             if (file.size > 1024 * 1024 * 5) //1024*1024*3 = 3mb
             {
@@ -20,7 +20,7 @@ const uploadController ={
     
             if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg') {
                 removeTmp(file.tempFilePath)
-                return res.status(400).json({ msg: "File Format is incorrect." })
+                return res.status(400).json({ msg: "Vui lòng chọn file đúng định dạng." })
             }
     
     
@@ -38,7 +38,7 @@ const uploadController ={
     destroy: (req, res)=>{
         try {
             const { public_id } = req.body;
-            if (!public_id) return res.status(400).json({ msg:"no image selected" })
+            if (!public_id) return res.status(400).json({ msg:"Không có ảnh được chọn" })
             cloudinary.v2.uploader.destroy(public_id, async(err,result)=>{
                 if(err) throw err;
                 res.json({msg:"deleted image"})

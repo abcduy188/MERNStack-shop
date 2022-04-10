@@ -58,10 +58,10 @@ const productController = {
     createProduct: async(req, res) => {
         try {
             const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
-            if (!images) return res.status(400).json({ msg: "No image upload" })
+            if (!images) return res.status(400).json({ msg: "Vui lòng chọn ảnh cho sản phẩm" })
             const product = await Products.findOne({ product_id })
             if (product)
-                return res.status(400).json({ msg: "This product already exist" })
+                return res.status(400).json({ msg: "Sản phẩm đã tồn tại" })
             const newProduct = new Products({
                 product_id,
                 title: title.toLowerCase(),
@@ -87,7 +87,7 @@ const productController = {
             const { product_id, title, price, description, content, images, category, cpu,vga,ram,weight } = req.body;
             if (!images) await Products.findByIdAndUpdate({ _id: req.params.id }, { cpu,vga,ram,weight })
             else await Products.findByIdAndUpdate({ _id: req.params.id }, { title: title.toLowerCase(), price, description, content, images, category, cpu,vga,ram,weight })
-            res.json({ msg: "update success" });
+            res.json({ msg: "Cập nhật thành công." });
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
@@ -95,7 +95,7 @@ const productController = {
     deleteProduct: async(req, res) => {
         try {
             await Products.findByIdAndDelete(req.params.id)
-            res.json({ msg: "deleteproduct success" })
+            res.json({ msg: "Xoá sản phẩm thành công" })
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }

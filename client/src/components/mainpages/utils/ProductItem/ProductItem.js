@@ -1,6 +1,4 @@
 import React, {useContext, useState } from "react";
-import axios from "axios";
-import Loading from "../loading/Loading";
 import { Link } from "react-router-dom";
 import { GlobalState } from "../../../../GlobalState";
 function ProductItem({ product ,isAdmin,token,callback,setCallback}) {

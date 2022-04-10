@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalState } from "../../../GlobalState";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const init = {
   country: "Viet Nam",

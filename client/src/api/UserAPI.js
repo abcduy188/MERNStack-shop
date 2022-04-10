@@ -33,7 +33,8 @@ function UserAPI(token) {
 
     //dependiences useeffect run when deps change
     const addCart = async(product) => {
-        if (!isLogged) return alert("Please Login to continue buying");
+        console.log("add cart dc goi ");
+        if (!isLogged) return alert("Vui lòng đăng nhập trước");
 
         const check = cart.every(item => {
             return item._id !== product._id;
@@ -44,9 +45,9 @@ function UserAPI(token) {
             await axios.patch('/user/addcart', { cart: [...cart, {...product, quantity: 1 }] }, {
                 headers: { Authorization: token }
             })
-
+            alert("Đã thêm sản phẩm vào giỏ hàng");
         } else {
-            alert("This item has been added to cart");
+            alert("Sản phẩm đã có sẵn trong giỏ hàng");
         }
     }
     return {

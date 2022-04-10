@@ -102,6 +102,7 @@ function CreateProduct() {
     try {
       if (!isAdmin) return alert("Bạn không phải admin");
       if (!images) return alert("Ảnh không đc bỏ trống");
+      if (product.category === "") return alert("Vui lòng chọn danh mục cho sản phẩm");
       if (edit) {
         await axios.put(
           `/api/product/${product._id}`,
@@ -118,6 +119,8 @@ function CreateProduct() {
             headers: { Authorization: token },
           }
         );
+
+       
       }
       setCallback(!callback);
       navigate("/");
